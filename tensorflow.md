@@ -99,7 +99,7 @@ Here, perm=[1, 0] means to swap the first dimension (rows) with the second dimen
   
   
 # Neural Network  
-  
+### Sequential API  
 ```
 import tensorflow as tf  
 from tensorflow import keras  
@@ -113,16 +113,46 @@ model = keras.Sequential(
 )  
 print(model.summary())  
 model.compile(  
-    loss=keras.losses.SparseCategoricalCrossentropy(from_loits=True),  
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),  
     optimizer=keras.optimizers.Adam(lr=0.001),  
     metrics=["accuracy"],  
 
 )  
 model.fit(x_train,y_train,batch_size=32,epochs=5,verbose=2)  
 model.evaluate(x_test, y_test, batch_size=32,verbose=2)  
+```  
+A neural network model trained and tested over the data using Sequential API.  
+We can also do  
 ```
+model = keras.Sequential()  
+model.add(keras.Input(shape=(784)))  
+model.add(layers.Dense(512,activation='relu'))  
+model.add(layers.Dense(256,activation='relu'))  
+model.add(layers.Dense(10))  
+```  
+Sequential API is very convenient, not very flexible  
 
+### Functional API
 
+Functional API is a bit more flexible than that of Sequential  
+
+```
+inputs=keras.Input(shape=(734))  
+x=layers.Dense(512, activation='relu')(inputs)  
+x=layers.Dense(256,activation='relu')(x)  
+outputs=layers.Dense(10,activation='softmax')(x)  
+model=keras.Model(inputs=inputs,outputs=outputs)  
+    
+print(model.summary())  
+  
+model.compile(
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=False),  
+    optimizer=keras.optimizers.Adam(lr=0.001),  
+    metrics=['accuracy'],  
+)  
+model.fit(x_train,y_train,batch_size=31,epochs=5,verbose=2)  
+model,evaluate(x_test,y_test,batch_size=32,verbose=2)  
+```
 
 
 
