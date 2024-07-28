@@ -95,13 +95,32 @@ x=tf.transpose(x,perm=[1,0])
 ```
 Here, perm=[1, 0] means to swap the first dimension (rows) with the second dimension (columns)  
   
-    
-      
-        
   
   
+  
+# Neural Network  
+  
+```
+import tensorflow as tf  
+from tensorflow import keras  
+model = keras.Sequential(  
+    [   keras.Input(shape=(28*28))
+        layers.Dense(512,activation='relu'),  
+        layers.Dense(256,activation='relu'),  
+        layers.Dense(10),  
 
+    ]
+)  
+print(model.summary())  
+model.compile(  
+    loss=keras.losses.SparseCategoricalCrossentropy(from_loits=True),  
+    optimizer=keras.optimizers.Adam(lr=0.001),  
+    metrics=["accuracy"],  
 
+)  
+model.fit(x_train,y_train,batch_size=32,epochs=5,verbose=2)  
+model.evaluate(x_test, y_test, batch_size=32,verbose=2)  
+```
 
 
 
