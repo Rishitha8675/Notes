@@ -47,11 +47,62 @@ z=x-y
   
 z=tf.divide(x,y)  
 z=x/y  
+  
 z=tf.multiply(x,y)  
 z=x*y  
-z=tf.tensordot(x,y,axes=1)  
+  
+z=tf.tensordot(x,y,axes=1) [For dot product]  
 z=tf.reduce_sum(x*y,axis=0)  
+  
 z=x**5  
+
+```
+
+For matrix Multiplication:
+```
+x=tf.random.normal((2,3))  
+y=tf.random.normal((3,4))  
+z=tf.matmul(x,y)  
+z=x@y  
+```
+
+## Indexing
+
+`x=tf.constant([0,1,2,4,2,1,3,1,1])`  
+`print(x[:])` prints all the elements  
+`print(x[1:])` prints the elements from the index "1"(inclusive)  
+`print(x[1:3])` prints the elements from index "1" and index "3" (exclusive)  
+`print(x[::2])` prints `[0 2 2 3 1]` i.e adds +2 to the each element  
+'print(x[::-1])` prints the elements in reverse order i.e `[1 1 3 1 2 4 2 1 0]`  
+
+```
+indices = tf.constant([0,3])  
+x_ind=tf.gather(x,indices)  
+print(x_ind)  
+```
+prints the elements in x with indices we mentioned  
+
+## Reshaping
+
+```
+x=tf.range(9)  
+x=tf.reshape(x,(3,3))  
+```
+Reshapes the x which is an 1-D tensor into 2-D tensor of shape (3,3)  
+
+```
+x=tf.transpose(x,perm=[1,0])  
+```
+Here, perm=[1, 0] means to swap the first dimension (rows) with the second dimension (columns)  
+  
+    
+      
+        
+  
+  
+
+
+
 
 
 
