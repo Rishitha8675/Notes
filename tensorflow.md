@@ -1,5 +1,5 @@
 
-# To avoid tenosrflow messages
+# To avoid tensorflow messages
 ```
 import os  
 import tensorflow  
