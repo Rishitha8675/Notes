@@ -62,5 +62,17 @@ class MyHuberLoss(Loss):
 ```   
 ## Contrastive loss function
 
-To calculate the loss in `Siamese Network Architecture` we need a new type of loss function which is not a in-built one.
+To calculate the loss in `Siamese Network Architecture` we need a new type of loss function which is not a in-built one.  
+  
+The idea is if the images are similar, we produce feature vectors that are very simailar and if images are different, produce feature vectors that are dissimilar  
+
+`\( Y \cdot D^2 + (1 - Y) \cdot \max(\text{margin} - D, 0)^2 \)`  
+This is the formula for contrastive loss  
+`Y` -> is the tensor of details about image similairty  
+     `1` if the images are similar and `0` if they are not  
+`D` -> is the tensor of eucliadean distances between the pairs of the images  
+`margin` -> is the minimum distance that can be present btwn the elements in order to consider them as similar or not  
+if `y=1` => Expression will get reduced to `D^2`  
+if `y=0` => Expression will get reduced to `max(margin-D,0)^2`  
+
 
