@@ -74,5 +74,51 @@ This is the formula for contrastive loss
 `margin` -> is the minimum distance that can be present btwn the elements in order to consider them as similar or not  
 if `y=1` => Expression will get reduced to `D^2`  
 if `y=0` => Expression will get reduced to `max(margin-D,0)^2`  
+  
+For `siamese Network` we used the above loss function with some modifications.  
+```
+(Y_true * (Y_pred)^2) + ((1-Y_true)* (max(margin-Y_pred,0)^2))
+
+```
+### Modified contrastive function with hyperparameter
+
+```
+def contrastive_loss_with_margin(margin):
+   def contrastive_loss(y_true,y_pred):
+     square_pred= K.square(y_pred)
+     margin_square = K.square(K.maximum(margin-y_pred,0))
+     return (y_true*square_pred + (1-y_true)*margin_square)
+   return contrastive_loss
+
+```     
+
+```
+model.compile(loss=contrastive_loss_with_margin(margin=0.7))
+
+```
+### Contrastive Loss-Object Oriented
+
+```
+from tensorflow.keras.losses import Loss
+
+class ContrastiveLoss(Loss):
+   margin=0
+   def __init__(self,margin):
+      super.__init__()
+      self.margin=margin
+
+   def call(self,y_true,y_pred):
+     square_pred=K.square(y_pred)
+     margin_square=K.square(K.maximum(self.margin-y_pred,0))
+     return (y_true*square_pred + (1-y_true)*margin_square)  
+
+```
+
+```
+model.compile(loss=ContrastiveLoss(margin=0.7))
+
+```
+
+
 
 
