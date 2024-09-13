@@ -1,7 +1,9 @@
 
 ## Huber loss function
 
-```
+```python
+import tensorflow as tf
+
 def my_huber_loss(y_true, y_pred):
    threshold=0.2
    error = y_true-y_pred
@@ -12,14 +14,16 @@ def my_huber_loss(y_true, y_pred):
 
 ```
 
-```
+```python
 model.compile(loss='my_huber_loss')
 
 ```
 
 ### Adding hyperparameters to custom loss functions
 
-```
+```python
+import tensorflow as tf
+
 def_my_huber_loss_with_threshold(threshold):
    def my_huber_loss(y_true, y_pred):
      threshold=0.2
@@ -32,14 +36,15 @@ def_my_huber_loss_with_threshold(threshold):
 
 ```
 
-```
+```python
 model.compile(loss=my_huber_loss_with_threshold) 
 
 ``` 
 ### Turning loss functions into classes
 
-```
+```python
 from tensorflow.keras.losses import Loss
+import tensorflow as tf
 
 class MyHuberLoss(Loss):
     threshold=0.5
@@ -56,7 +61,7 @@ class MyHuberLoss(Loss):
 
  ```
 
-```
+```python
  model.compile(loss=MyHuberLoss(threshold=0.7))
 
 ```   
@@ -82,7 +87,9 @@ For `siamese Network` we used the above loss function with some modifications.
 ```
 ### Modified contrastive function with hyperparameter
 
-```
+```python
+from tensorflow.keras import backend as K
+
 def contrastive_loss_with_margin(margin):
    def contrastive_loss(y_true,y_pred):
      square_pred= K.square(y_pred)
@@ -92,14 +99,15 @@ def contrastive_loss_with_margin(margin):
 
 ```     
 
-```
+```python
 model.compile(loss=contrastive_loss_with_margin(margin=0.7))
 
 ```
 ### Contrastive Loss-Object Oriented
 
-```
+```python
 from tensorflow.keras.losses import Loss
+from tensorflow.keras import backend as K
 
 class ContrastiveLoss(Loss):
    margin=0
@@ -114,7 +122,7 @@ class ContrastiveLoss(Loss):
 
 ```
 
-```
+```python
 model.compile(loss=ContrastiveLoss(margin=0.7))
 
 ```
