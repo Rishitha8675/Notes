@@ -71,8 +71,7 @@ To calculate the loss in `Siamese Network Architecture` we need a new type of lo
   
 The idea is if the images are similar, we produce feature vectors that are very simailar and if images are different, produce feature vectors that are dissimilar  
 
-
-`(Y_true * (Y_pred)^2) + ((1-Y_true)* (max(margin-Y_pred,0)^2))`
+`Y.D^2 + ((1-Y).(max(margin-D,0)^2))`    
 This is the formula for contrastive loss  
 `Y` -> is the tensor of details about image similairty  
      `1` if the images are similar and `0` if they are not  
